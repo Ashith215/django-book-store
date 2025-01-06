@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+{% block body_block %}
+{% load static %}
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{%static '/homepage/images/ci1.jpg' %}" class="d-block w-100" alt="ci1">
+    </div>
+    <div class="carousel-item">
+      <img src="{%static '/homepage/images/ci2.jpg' %}" class="d-block w-100" alt="ci2">
+    </div>
+    <div class="carousel-item">
+      <img src="{%static '/homepage/images/ci3.jpg' %}" class="d-block w-100" alt="ci3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div style="background-color: aqua; text-align: center; height: 50px; margin: 10px;">
+<h5>We are providing 50% off on all the books</h5>
+</div>
+
+
+<div class="row">
+{% for b_item in books_t %}
+
+
+  <div class="card" style="width: 18rem; margin: 10px; border-radius: 10px; border: 2px solid black; padding: 10px;">
+    <img src="{{b_item.image.url}}" class="card-img-top" alt="..." width="50" height="250" />
+    <div class="card-body">
+      <h5 class="card-title">{{b_item.name}}</h5>
+      <p class="card-text">{{b_item.description}}</p>
+      <p class="card-text">{{b_item.price}}</p>
+      <a href="{% url 'product' id=b_item.id %}" class="btn btn-primary">Click Here</a>
+      <a href="{% url 'addtowish' id=b_item.id %}" class="btn btn-primary">+Wishlist</a>
+      <a href="{% url 'addtocart' id=b_item.id %}" class="btn btn-primary c-button">+Cart</a>
+    </div>
+  </div>
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}

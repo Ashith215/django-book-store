@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+{% block body_block %}
+
+<div class="container mt-5">
+    <div class="row" style="max-width: 800px;">
+        <div class="col-md-6">
+            <img src="{{product.image.url}}" alt="..."  class="img-fluid product-img">   
+        </div>
+        <div class="col-md-6">
+            <h2>{{product.name}}</h2>   
+            <h2>Amount: {{product.price}}</h2>  
+            <h2>{{product.description}}</h2>  
+        </div>
+
+    </div>
+
+    <div class="col-md-6" style="margin-left: 20px; margin-left: 20px; margin-top: 80px; color: blue;">
+        <h1 style="text-decoration: underline;">REVIEWS</h1>
+        {% for review in reviews %}
+        <div class="card">
+                
+            <h2>{{review.name}}</h2>   
+            <h2>Rating: {{review.rating}}</h2>  
+            <h2>{{review.review_text}}</h2>    
+        </div>
+        {% endfor %}
+    </div>
+        
+</div>
+    
+{% endblock %}
