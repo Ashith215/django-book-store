@@ -14,30 +14,40 @@
             <h2>{{item.product.description}}</h2>  
             <div>
                 <p>Quantity: {{item.product.count}}</p>
-                <button class="btn btn-outline-secondary" id="decrementBtn">-</button>
-                <input type="number" class="form-control text-center" value="{{item.cart_count}}" min="1" id="inputBtn">
-                <button class="btn btn-outline-secondary" id="incrementBtn">+</button>
-            </div>
+                <!-- <button class="btn btn-outline-secondary" id="decrementBtn">-</button> -->
+                <!-- <input class="form-control text-center" value="{{item.cart_count}}" id="inputBtn"> -->
+                <div class="form-control text-center" id="inputBtn">
+                    {{item.cart_count}}
+                </div>
+                <!-- <button class="btn btn-outline-secondary" id="incrementBtn">+</button> -->
+            </div> <br> &emsp;&nbsp;
+            <a href="{% url 'edit_cartitem' id=item.id %}" class="btn btn-primary">Edit</a> &emsp;&nbsp;
             <a href="{% url 'removecart' id=item.id %}" class="btn btn-primary">Remove</a>
         </div>
     </div>
 </div>
 
-<script>
+{% endfor %}
+
+{% endblock %}
+
+
+<!-- <script>
+
     document.addEventListener("DOMContentLoaded", function(){
-        const decrementBtn = document.getElementById('decrementBtn');
-        const incrementBtn = document.getElementById('incrementBtn');
-        const inputBtn = document.getElementById('inputBtn');
+        const decrementBtn = document.getElementById("decrementBtn");
+        const incrementBtn = document.getElementById("incrementBtn");
+        const inputBtn = document.getElementById("inputBtn");
 
         decrementBtn.addEventListener("click", function(){
-            UpdateQuantity(-1)
+            UpdateQuantity(-1);
         });
         incrementBtn.addEventListener("click", function(){
-            UpdateQuantity(1)
+            UpdateQuantity(1);
         });
 
         function UpdateQuantity(change){
-            let currentValue = parseInt(inputBtn);
+            let currentValue = parseInt(inputBtn.value);
             let newValue = currentValue + change;
 
             if(newValue < 1){
@@ -45,10 +55,6 @@
             }
             inputBtn.value = newValue
         }
+    });
 
-    })
-</script>
-
-{% endfor %}
-
-{% endblock %}
+</script> -->

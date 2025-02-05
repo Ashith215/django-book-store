@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book, Booksupload, wishlist, BookReview, cart, Cartitem
-from .forms import UploadForm
+from .forms import UploadForm, EditForm
 
 
 def Home(request):
@@ -91,16 +91,6 @@ def removewish(request, id):
     wish_obj.products.remove(product_rm)
     return redirect('show_wishlist')
     
-    # return render(request, 'wishlist.html', {"user_product": wish_obj.products.all()})
-
-
-# def addtocart(request, id):
-#     user = request.user
-#     product = Booksupload.objects.get(id=id)
-#     obj1, created = cart.objects.get_or_create(user=user)
-#     obj1.products.add(product)
-#     obj1.save()
-#     return redirect('home')
 
 
 def addtocart(request, id):
@@ -112,11 +102,6 @@ def addtocart(request, id):
     return redirect('home')
 
 
-# def show_cart(request):
-#     user = request.user
-#     cart_object = cart.objects.get(user=user)
-#     return render(request, 'cart.html', {"user_products": cart_object.products.all()})
-
 
 def show_cart(request):
     user_cart, created = cart.objects.get_or_create(user = request.user)
@@ -124,11 +109,18 @@ def show_cart(request):
     return render(request, 'cart.html', {"user_products": cart_object})
 
 
-# def removecart(request, id):
-#     product_rm = Booksupload.objects.get(id=id)
-#     cart_obj = cart.objects.get(user = request.user)
-#     cart_obj.products.remove(product_rm)
-# return render(request, 'cart.html', {"user_products": cart_obj.products.all()})
+def edit_cartitem(request, id):
+    CartItem = Cartitem.objects.all().get(pk=id)
+    cartitem = CartItem.cart_count
+    product = CartItem.product.id
+    Item = Booksupload.objects.all().get(pk=product)
+    editForm = EditForm(instance = CartItem)
+    if request.method == 'POST':
+        editForm = EditForm(request.POST, instance = CartItem)
+        if editForm.is_valid():
+            editForm.save()
+    context = {'cartitem': cartitem, 'item': Item, 'EditForm': editForm}
+    return render(request, 'edit.html', context)
 
 
 def removecart(request, id):

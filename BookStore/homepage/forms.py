@@ -1,4 +1,4 @@
-from .models import Booksupload
+from .models import Booksupload, Cartitem
 from django import forms
 
 
@@ -27,3 +27,15 @@ class UploadForm(forms.ModelForm):
     class Meta:
         model = Booksupload
         fields = ['name', 'description', 'price', 'image']
+
+
+class EditForm(forms.ModelForm):
+
+    cart_count = forms.DecimalField(
+        widget = forms.TextInput(attrs = {'class': 'form-control text-center', 'id': 'inputBtn'}), 
+        required = True
+    )
+
+    class Meta:
+        model = Cartitem
+        fields = ['cart_count']

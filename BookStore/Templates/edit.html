@@ -1,0 +1,63 @@
+{% extends 'main.html' %}
+{% block body_block %}
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{item.image.url}}" alt="Not Available"  class="img-fluid product-img">   
+            </div>
+            <div class="col=md-6">
+                <h2>{{item.name}}</h2>   
+                <h2>Amount: {{item.price}}</h2>  
+                <h2>{{item.description}}</h2>  
+                <div>
+                    <p>Quantity: {{item.count}}</p>
+                    <button class="btn btn-outline-secondary" id="decrementBtn">-</button>
+                    <!-- <input type="number" class="form-control text-center" value="{{cartitem}}" id="inputBtn"> -->
+                    {{EditForm.cart_count}}
+                    <button class="btn btn-outline-secondary" id="incrementBtn">+</button><br><br>&emsp;&emsp;
+                    <a href="{% url 'show_cart' %}" class="btn btn-primary">Return to mycart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+
+    const decrementBtn = document.getElementById("decrementBtn");
+    const incrementBtn = document.getElementById("incrementBtn");
+    const inputBtn = document.getElementById("inputBtn");
+    const count = "{{item.count}}"
+    console.log(inputBtn.value)
+    console.log(count)
+
+    decrementBtn.onclick = function(){
+        value = parseInt(inputBtn.value);
+        decValue = value-1;
+        // console.log(decValue);
+        if(decValue < 1){
+            decValue = 1;
+        }
+        inputBtn.value = decValue;
+        // console.log(decValue);
+    }
+    incrementBtn.onclick = function(){
+        value = parseInt(inputBtn.value);
+        incValue = value+1;
+        // console.log(incValue);
+        if(incValue > count){
+            incValue = count;
+        }
+        inputBtn.value = incValue;
+        // console.log(incValue);
+    }
+
+</script>
+
+
+{% endblock %}
